@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+import nest_asyncio # <-- AÑADIR ESTA LÍNEA
+nest_asyncio.apply() # <-- AÑADIR ESTA LÍNEA
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS # <-- MUDANÇA 1: Nova importação
