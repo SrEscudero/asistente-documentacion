@@ -1,0 +1,12 @@
+# Ignorar el archivo de variables de entorno
+.env
+
+# Ignorar la base de datos local de Chroma
+chroma_db/
+
+# Ignorar archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Ignorar archivos del sistema operativo
+.DS_Store
