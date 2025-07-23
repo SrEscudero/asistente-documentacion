@@ -1,6 +1,6 @@
 streamlit
 langchain
 langchain-google-genai
-langchain-chroma
 python-dotenv
-pysqlite3-binary
+faiss-cpu
+langchain-community
