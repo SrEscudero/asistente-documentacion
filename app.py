@@ -1,10 +1,10 @@
 import streamlit as st
 import os
-import nest_asyncio # <-- AÑADIR ESTA LÍNEA
-nest_asyncio.apply() # <-- AÑADIR ESTA LÍNEA
+import nest_asyncio EA
+nest_asyncio.apply() 
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
-from langchain_community.vectorstores import FAISS # <-- MUDANÇA 1: Nova importação
+from langchain_community.vectorstores import FAISS 
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
@@ -28,7 +28,6 @@ def carregar_recursos():
     print("Criando embeddings e base de dados FAISS...")
     embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=api_key)
 
-    # --- MUDANÇA 2: Usando FAISS em vez de Chroma ---
     # A FAISS cria o índice em memória, o que é perfeito e rápido para o Streamlit.
     vector_db = FAISS.from_documents(
         documents=documentos,
