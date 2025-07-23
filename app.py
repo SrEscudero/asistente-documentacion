@@ -50,4 +50,46 @@ def carregar_recursos():
     {context}
 
     Pergunta do Usuário:
-    {question
+    {question}
+
+    Resposta do Especialista:
+    """
+    PROMPT = PromptTemplate(
+        template=prompt_template, input_variables=["context", "question"]
+    )
+
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        chain_type_kwargs={"prompt": PROMPT}
+    )
+    return qa_chain
+
+# --- INTERFAZ DE STREAMLIT ---
+st.title("🤖 Assistente de Documentação Interna")
+st.caption("Faça perguntas em português sobre a documentação do projeto.")
+
+try:
+    chain = carregar_recursos()
+except Exception as e:
+    st.error(f"Ocorreu um erro ao carregar os recursos: {e}")
+    st.stop()
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("Qual é a sua pergunta?"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    with st.spinner("Analisando documentos..."):
+        response = chain.invoke(prompt)
+        ai_response = response['result']
+
+    st.session_state.messages.append({"role": "assistant", "content": ai_response})
+
+    st.rerun()
