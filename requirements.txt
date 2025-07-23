@@ -3,4 +3,3 @@ langchain
 langchain-google-genai
 python-dotenv
 faiss-cpu
-langchain-community
